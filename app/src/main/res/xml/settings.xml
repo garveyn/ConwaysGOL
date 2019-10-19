@@ -29,8 +29,7 @@
             app:key="speed"
             app:title="@string/game_speed_title"
             app:defaultValue="1"
-            app:min="1"
-            app:max="10"/>
+            android:max="10"/>
 
         <ListPreference
             app:key="size"

@@ -2,6 +2,7 @@ package com.nick.conwaygameoflife
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Button
 import androidx.fragment.app.Fragment
 
 class ConwayFragment() : Fragment() {
@@ -12,9 +13,15 @@ class ConwayFragment() : Fragment() {
     var backgroundColor:    Int = 0
 
     // Game state
-    var isPlaying:          Boolean = false
-    var playSpeed:          Int = 1 // May not be used
-    var gameBoard:          ArrayList<Cell> = ArrayList(20*20)
+    var isPlaying:  Boolean = false
+    var playSpeed:  Int = 1 // May not be used
+    var gameBoard:  ArrayList<Cell> = ArrayList(20*20)
+
+    // Buttons
+    lateinit var playPauseButton:   Button
+    lateinit var saveButton:        Button
+    lateinit var loadButton:        Button
+    lateinit var cloneButton:       Button
 
     companion object {
 
@@ -32,6 +39,13 @@ class ConwayFragment() : Fragment() {
 
         val view = inflater.inflate(R.layout.gol_view, container, false)
 
+        // Store buttons and setup actions
+        // Trying not to use synthetics anymore...
+        playPauseButton = view.findViewById(R.id.play_button)
+        saveButton = view.findViewById(R.id.save_button)
+        loadButton = view.findViewById(R.id.load_button)
+        cloneButton = view.findViewById(R.id.clone_button)
+
 
         return view
     }
@@ -45,8 +59,10 @@ class ConwayFragment() : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_settings -> {
-                //TODO Go to settings screen
-
+                val singleActivity = activity
+                if (singleActivity != null && singleActivity is SingleFragmentActivity) {
+                    singleActivity.replaceFragment(SettingsFragment())
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)

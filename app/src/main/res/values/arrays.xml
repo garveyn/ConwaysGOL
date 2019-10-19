@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="board_size_entry">
+    <string-array name="board_size_entry">
         <item>20x20</item>
         <item>30x30</item>
         <item>40x40</item>
         <item>50x50</item>
         <item>60x60</item>
-    </array>
+    </string-array>
 
-    <array name="board_size_value">
+    <string-array name="board_size_value">
         <item>20</item>
         <item>30</item>
         <item>40</item>
         <item>50</item>
         <item>60</item>
-    </array>
+    </string-array>
 
 </resources>

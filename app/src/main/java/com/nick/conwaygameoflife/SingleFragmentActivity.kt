@@ -3,7 +3,6 @@ package com.nick.conwaygameoflife
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 
 abstract class SingleFragmentActivity : AppCompatActivity() {
 
@@ -22,5 +21,23 @@ abstract class SingleFragmentActivity : AppCompatActivity() {
                 .add(R.id.fragment_container, fragment)
                 .commit()
         }
+    }
+
+    fun replaceFragment(newFragment: Fragment) {
+        val fm = supportFragmentManager
+        val oldFragment = fm.findFragmentById(R.id.fragment_container)
+
+        if (oldFragment != null) {
+            fm.beginTransaction()
+                .replace(R.id.fragment_container, newFragment)
+                .addToBackStack(newFragment.toString())
+                .commit()
+
+        } else {
+            fm.beginTransaction()
+                .add(R.id.fragment_container, newFragment)
+                .commit()
+        }
+
     }
 }
