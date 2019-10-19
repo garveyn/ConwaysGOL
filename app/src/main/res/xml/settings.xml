@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:key="colors"
+        app:title="@string/cc_category_title">
+
+        <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+            app:key="cc_live"
+            app:title="@string/cc_live_title"/>
+
+        <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+            app:key="cc_old"
+            app:title="@string/cc_old_title"/>
+
+        <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+            app:key="cc_dead"
+            app:title="@string/cc_dead_title"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="extra"
+        app:title="@string/extra_credit_title">
+
+        <SeekBarPreference
+            app:key="speed"
+            app:title="@string/game_speed_title"
+            app:defaultValue="1"
+            app:min="1"
+            app:max="10"/>
+
+        <ListPreference
+            app:key="size"
+            app:title="@string/gridsize_title"
+            app:entries="@array/board_size_entry"
+            app:entryValues="@array/board_size_value"
+            app:defaultValue="20"/>
+
+        <EditTextPreference
+            app:key="life_expectancy"
+            app:title="@string/lifespan_title"
+            app:summary="@string/lifespan_summary"
+            app:defaultValue="0"/>
+
+    </PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

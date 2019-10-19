@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">ConwayGameOfLife</string>
+
+    <!-- Buttons -->
+    <string name="save_button">Save</string>
+    <string name="load_button">Load</string>
+    <string name="play_button">Play!</string>
+    <string name="clone_button">Clone</string>
+    <string name="settings_button">Settings</string>
+
+    <!-- Preferences -->
+    <string name="cc_category_title">Change Colors</string>
+    <string name="cc_live_title">Living cell color</string>
+    <string name="cc_old_title">Old cell color</string>
+    <string name="cc_dead_title">Dead (background) cell color</string>
+    <string name="extra_credit_title">Extra Credit settings</string>
+    <string name="gridsize_title">Game grid size</string>
+    <string name="lifespan_title">Lifespan of cell</string>
+    <string name="lifespan_summary">How long a cell will exist before dying. Enter \'0\' for immortality</string>
+    <string name="game_speed_title">Adjust game speed</string>
+
+</resources>
