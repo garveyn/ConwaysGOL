@@ -9,14 +9,32 @@
     <string name="settings_button">Settings</string>
 
     <!-- Preferences -->
+    <!-- Keys -->
+    <string name="cc_category_key">colors</string>
+    <string name="cc_live_key">cc_live</string>
+    <string name="cc_old_key">cc_old</string>
+    <string name="cc_dead_key">cc_dead</string>
+    <string name="extra_credit_key">extra</string>
+    <string name="gridsize_key">size</string>
+    <string name="lifespan_key">life_expectancy</string>
+    <string name="game_speed_key">speed</string>
+    <string name="debug_key">debug</string>
+    <string name="restore_key">restore</string>
+
+    <!-- Titles -->
     <string name="cc_category_title">Change Colors</string>
     <string name="cc_live_title">Living cell color</string>
     <string name="cc_old_title">Old cell color</string>
     <string name="cc_dead_title">Dead (background) cell color</string>
-    <string name="extra_credit_title">Extra Credit settings</string>
+    <string name="extra_credit_title">Extra Credit</string>
     <string name="gridsize_title">Game grid size</string>
-    <string name="lifespan_title">Lifespan of cell</string>
-    <string name="lifespan_summary">How long a cell will exist before dying. Enter \'0\' for immortality</string>
+    <string name="lifespan_title">Lifespan of cell (0 = immortal)</string>
     <string name="game_speed_title">Adjust game speed</string>
+    <string name="debug_title">Debug</string>
+    <string name="restore_title">Revert preferences</string>
+
+    <!-- Summaries -->
+    <string name="lifespan_summary">How long a cell will exist before dying. Enter \'0\' for immortality</string>
+    <string name="restore_summary">Change all preferences to their default values</string>
 
 </resources>

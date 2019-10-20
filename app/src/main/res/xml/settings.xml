@@ -4,45 +4,57 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
-        app:key="colors"
+        app:key="@string/cc_category_key"
         app:title="@string/cc_category_title">
 
         <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
-            app:key="cc_live"
+            app:key="@string/cc_live_key"
             app:title="@string/cc_live_title"/>
 
         <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
-            app:key="cc_old"
+            app:key="@string/cc_old_key"
             app:title="@string/cc_old_title"/>
 
         <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
-            app:key="cc_dead"
+            app:key="@string/cc_dead_key"
             app:title="@string/cc_dead_title"/>
 
     </PreferenceCategory>
 
     <PreferenceCategory
-        app:key="extra"
+        app:key="@string/extra_credit_key"
         app:title="@string/extra_credit_title">
 
-        <SeekBarPreference
-            app:key="speed"
-            app:title="@string/game_speed_title"
-            app:defaultValue="1"
-            android:max="10"/>
-
         <ListPreference
-            app:key="size"
-            app:title="@string/gridsize_title"
+            app:defaultValue="20.20"
             app:entries="@array/board_size_entry"
             app:entryValues="@array/board_size_value"
-            app:defaultValue="20"/>
+            app:key="@string/gridsize_key"
+            app:title="@string/gridsize_title"
+            app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
-            app:key="life_expectancy"
+            app:defaultValue="0"
+            app:key="@string/lifespan_key"
             app:title="@string/lifespan_title"
-            app:summary="@string/lifespan_summary"
-            app:defaultValue="0"/>
+            app:useSimpleSummaryProvider="true"/>
+
+        <SeekBarPreference
+            android:max="10"
+            app:defaultValue="1"
+            app:key="@string/game_speed_key"
+            app:title="@string/game_speed_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="@string/debug_key"
+        app:title="@string/debug_title">
+
+        <Preference
+            app:key="@string/restore_key"
+            app:title="@string/restore_title"
+            app:summary="@string/restore_summary"/>
 
     </PreferenceCategory>
 

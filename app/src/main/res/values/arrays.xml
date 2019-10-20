@@ -9,11 +9,11 @@
     </string-array>
 
     <string-array name="board_size_value">
-        <item>20</item>
-        <item>30</item>
-        <item>40</item>
-        <item>50</item>
-        <item>60</item>
+        <item>20.20</item>
+        <item>30.30</item>
+        <item>40.40</item>
+        <item>50.50</item>
+        <item>60.60</item>
     </string-array>
 
 </resources>
