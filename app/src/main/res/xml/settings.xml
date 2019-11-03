@@ -9,15 +9,18 @@
 
         <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
             app:key="@string/cc_live_key"
-            app:title="@string/cc_live_title"/>
+            app:title="@string/cc_live_title"
+            android:defaultValue="@color/default_light"/>
 
         <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
             app:key="@string/cc_old_key"
-            app:title="@string/cc_old_title"/>
+            app:title="@string/cc_old_title"
+            android:defaultValue="@color/default_light_faded"/>
 
         <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
             app:key="@string/cc_dead_key"
-            app:title="@string/cc_dead_title"/>
+            app:title="@string/cc_dead_title"
+            android:defaultValue="@color/default_dark"/>
 
     </PreferenceCategory>
 
