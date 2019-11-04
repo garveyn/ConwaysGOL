@@ -92,4 +92,8 @@ class ConwayFragment : Fragment() {
 
     }
 
+    fun updateUI() {
+
+    }
+
 }
