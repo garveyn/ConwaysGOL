@@ -7,6 +7,7 @@
     <string name="play_button">Play!</string>
     <string name="clone_button">Clone</string>
     <string name="settings_button">Settings</string>
+    <string name="reset_button">Reset</string>
 
     <!-- Preferences -->
     <!-- Keys -->

@@ -3,11 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_settings"
-        android:title="@string/settings_button"
+        android:id="@+id/action_reset"
+        android:title="@string/reset_button"
         android:orderInCategory="1"
-        android:icon="@drawable/ic_settings"
+        android:icon="@drawable/ic_reset"
         app:showAsAction="always"/>
 
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/settings_button"
+        android:orderInCategory="2"
+        android:icon="@drawable/ic_settings"
+        app:showAsAction="ifRoom"/>
 
 </menu>
