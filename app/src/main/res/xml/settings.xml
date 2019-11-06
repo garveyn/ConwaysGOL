@@ -29,7 +29,7 @@
         app:title="@string/extra_credit_title">
 
         <ListPreference
-            app:defaultValue="20.20"
+            app:defaultValue="20"
             app:entries="@array/board_size_entry"
             app:entryValues="@array/board_size_value"
             app:key="@string/gridsize_key"

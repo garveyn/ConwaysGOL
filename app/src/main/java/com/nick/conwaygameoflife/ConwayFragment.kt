@@ -68,10 +68,11 @@ class ConwayFragment : Fragment() {
             getString(R.string.gridsize_key), "20")!!.toInt()
 
         recyclerView = view.findViewById<RecyclerView>(R.id.game_screen).apply {
-            adapter = ConwayAdapter(gameBoard, context)
+            adapter = ConwayAdapter(gameBoard, this@ConwayFragment)
             layoutManager = GridLayoutManager(context, boardSize)
         }
 
+        //TODO use Handler to
 
         return view
     }
