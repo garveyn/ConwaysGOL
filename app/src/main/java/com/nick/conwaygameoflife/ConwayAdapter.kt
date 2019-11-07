@@ -6,12 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 
-class ConwayAdapter(var cellArr: ArrayList<Cell>, val fragment: ConwayFragment)
+class ConwayAdapter(var cellArr: Array<Cell>, var size: Int, fragment: ConwayFragment)
     : RecyclerView.Adapter<ConwayAdapter.ConwayHolder>() {
 
     val context: Context = fragment.requireContext()
@@ -23,17 +22,17 @@ class ConwayAdapter(var cellArr: ArrayList<Cell>, val fragment: ConwayFragment)
         val cellImage: ImageView = itemView.findViewById(R.id.cell_imageView)
         private lateinit var cell: Cell
 
-        init {
-
-        }
-
         fun bind(cellToBind: Cell){
             this.cell = cellToBind
 
             val lifespan = preferences.getInt(context.getString(R.string.lifespan_key),
-                ConwayFragment.IMMORTAL)
+                GameBoard.IMMORTAL)
 
-            cellImage.setImageResource(R.drawable.ic_cell)
+            if (cell.isLiving) {
+                cellImage.setImageResource(R.drawable.ic_cell)
+            } else {
+                cellImage.setImageResource(R.drawable.ic_settings)
+            }
 
             cellImage.setColorFilter(getCellColor(lifespan))
 
@@ -51,7 +50,7 @@ class ConwayAdapter(var cellArr: ArrayList<Cell>, val fragment: ConwayFragment)
             return when {
                 !cell.isLiving -> backgroundColor
 
-                cell.age == 0 || lifespan == ConwayFragment.IMMORTAL -> livingColor
+                cell.age == 0 || lifespan == GameBoard.IMMORTAL -> livingColor
 
                 else -> {
                     val relAge = cell.age.toFloat()/lifespan
@@ -63,9 +62,7 @@ class ConwayAdapter(var cellArr: ArrayList<Cell>, val fragment: ConwayFragment)
         fun cellClicked() {
             val newCell = Cell(true, 0)
             cellArr[adapterPosition] = newCell
-            fragment.gameBoard[adapterPosition] = newCell
             notifyItemChanged(adapterPosition)
-            Toast.makeText(context, "Click at $adapterPosition", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -73,8 +70,16 @@ class ConwayAdapter(var cellArr: ArrayList<Cell>, val fragment: ConwayFragment)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConwayHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.holder_cell, parent, false)
+
+        view.apply {
+            minimumHeight = parent.height/size
+            minimumWidth = parent.width/size
+
+        }
+
         return ConwayHolder(view)
     }
+
 
     override fun getItemCount(): Int = cellArr.size
 
