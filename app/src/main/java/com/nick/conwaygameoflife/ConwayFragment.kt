@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import java.util.ArrayList
 
 class ConwayFragment : Fragment() {
@@ -57,6 +58,10 @@ class ConwayFragment : Fragment() {
 
         playPauseButton.setOnClickListener {
             updateBoard()
+        }
+        saveButton.setOnClickListener {
+            val gson = Gson()
+            gson.toJson(state)
         }
 
         /*

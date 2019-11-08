@@ -71,7 +71,6 @@ class ConwayAdapter(var cellArr: Array<Cell>, var size: Int, fragment: ConwayFra
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.holder_cell, parent, false)
 
-
         view.apply {
             minimumHeight = parent.height/size
             minimumWidth = parent.width/size

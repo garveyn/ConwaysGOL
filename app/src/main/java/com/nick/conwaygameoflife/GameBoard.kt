@@ -52,15 +52,15 @@ class GameBoard(val size: Int, var lifeExpectancy: Int) {
                 }
             }
 
-            Log.d(TAG, "calc deaths --------- \n" +
-                "Cell $cell at ${transTo2D(index)} \n" +
-                "neighbors: ${getNeighbors(index).map {i -> transTo2D(i) }} \n" +
-                "livingNeighbors: $livingNeighbors")
+//            Log.d(TAG, "calc deaths --------- \n" +
+//                "Cell $cell at ${transTo2D(index)} \n" +
+//                "neighbors: ${getNeighbors(index).map {i -> transTo2D(i) }} \n" +
+//                "livingNeighbors: $livingNeighbors")
 
             // Dies if over or under populated
             if (livingNeighbors < SURVIVAL_MIN || livingNeighbors > SURVIVAL_MAX) {
                 newBoard[index] = Cell(false, 0)
-                Log.d(TAG, "Cell Killed: ${transTo2D(index)}")
+                //Log.d(TAG, "Cell Killed: ${transTo2D(index)}")
                 changes.add(index)
             }
         }
@@ -76,10 +76,10 @@ class GameBoard(val size: Int, var lifeExpectancy: Int) {
                 }
             }
 
-            Log.d(TAG, "calc Births ++++++++++++ \n" +
-                    "Cell $cell at ${transTo2D(index)} \n" +
-                    "neighbors: ${getNeighbors(index).map {i -> transTo2D(i) }} \n" +
-                    "livingNeighbors: $livingNeighbors")
+//            Log.d(TAG, "calc Births ++++++++++++ \n" +
+//                    "Cell $cell at ${transTo2D(index)} \n" +
+//                    "neighbors: ${getNeighbors(index).map {i -> transTo2D(i) }} \n" +
+//                    "livingNeighbors: $livingNeighbors")
 
             if (livingNeighbors == BIRTH_NUMBER) {
                 newBoard[index] = Cell(true, 0)
@@ -90,10 +90,10 @@ class GameBoard(val size: Int, var lifeExpectancy: Int) {
 
         // Set new board state
         board = newBoard
-        Log.d(TAG, "From Calc - \n " +
-                "living: ${livingCells.map { i -> transTo2D(i) }} \n \n" +
-                "deadChecked: ${deadCells.map { i -> transTo2D(i) }} \n \n" +
-                "newLiving: ${getLivingCells().map { i -> transTo2D(i) }}")
+//        Log.d(TAG, "From Calc - \n " +
+//                "living: ${livingCells.map { i -> transTo2D(i) }} \n \n" +
+//                "deadChecked: ${deadCells.map { i -> transTo2D(i) }} \n \n" +
+//                "newLiving: ${getLivingCells().map { i -> transTo2D(i) }}")
     }
 
     private fun getLivingCells() : List<Int> {
