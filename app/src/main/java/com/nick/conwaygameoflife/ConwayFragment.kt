@@ -65,8 +65,8 @@ class ConwayFragment : Fragment() {
         */
         val boardSize = savedInstanceState?.getInt(BOARD_SIZE_KEY)
             ?: sharedPreferences.getString(getString(R.string.gridsize_key), "20")!!.toInt()
-        val lifeExpectancy = sharedPreferences.getInt(
-            getString(R.string.lifespan_key), GameBoard.IMMORTAL)
+        val lifeExpectancy = sharedPreferences.getString(
+            getString(R.string.lifespan_key), GameBoard.IMMORTAL.toString())!!.toInt()
 
         state = GameBoard(boardSize, lifeExpectancy)
         state.board = savedInstanceState?.getParcelableArrayList<Cell>(BOARD_KEY)?.toArray(state.board)
@@ -124,8 +124,8 @@ class ConwayFragment : Fragment() {
     fun updateUI() {
         val newBoardSize = sharedPreferences.getString(
             getString(R.string.gridsize_key), "20")!!.toInt()
-        val newLifeExpectancy = sharedPreferences.getInt(
-            getString(R.string.lifespan_key), GameBoard.IMMORTAL)
+        val newLifeExpectancy = sharedPreferences.getString(
+            getString(R.string.lifespan_key), GameBoard.IMMORTAL.toString())!!.toInt()
 
         if (state.size != newBoardSize) {
             resetBoard()
@@ -136,8 +136,10 @@ class ConwayFragment : Fragment() {
 
     private fun updateBoard() {
         state.calculateNewBoardState()
+        val adapter = recyclerView.adapter as? ConwayAdapter
+        adapter?.cellArr = state.board
         for (change in state.changes) {
-            recyclerView.adapter?.notifyItemChanged(change)
+            adapter?.notifyItemChanged(change)
         }
     }
 
@@ -145,8 +147,8 @@ class ConwayFragment : Fragment() {
         // Reset board with new size
         val newBoardSize = sharedPreferences.getString(
             getString(R.string.gridsize_key), "20")!!.toInt()
-        val newLifeExpectancy = sharedPreferences.getInt(
-            getString(R.string.lifespan_key), GameBoard.IMMORTAL)
+        val newLifeExpectancy = sharedPreferences.getString(
+            getString(R.string.lifespan_key), GameBoard.IMMORTAL.toString())!!.toInt()
 
         state = GameBoard(newBoardSize, newLifeExpectancy)
         val adapter = recyclerView.adapter as ConwayAdapter

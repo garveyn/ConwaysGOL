@@ -25,8 +25,8 @@ class ConwayAdapter(var cellArr: Array<Cell>, var size: Int, fragment: ConwayFra
         fun bind(cellToBind: Cell){
             this.cell = cellToBind
 
-            val lifespan = preferences.getInt(context.getString(R.string.lifespan_key),
-                GameBoard.IMMORTAL)
+            val lifespan = preferences.getString(context.getString(R.string.lifespan_key),
+                GameBoard.IMMORTAL.toString())!!.toInt()
 
             if (cell.isLiving) {
                 cellImage.setImageResource(R.drawable.ic_cell)
@@ -71,10 +71,10 @@ class ConwayAdapter(var cellArr: Array<Cell>, var size: Int, fragment: ConwayFra
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.holder_cell, parent, false)
 
+
         view.apply {
             minimumHeight = parent.height/size
             minimumWidth = parent.width/size
-
         }
 
         return ConwayHolder(view)

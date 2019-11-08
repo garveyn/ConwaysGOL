@@ -52,10 +52,10 @@ class GameBoard(val size: Int, var lifeExpectancy: Int) {
                 }
             }
 
-//            Log.d(TAG, "calc deaths - \n" +
-//                "Cell $cell at ${transTo2D(index)} \n" +
-//                "neighbors: ${getNeighbors(index).map {i -> transTo2D(i) }} \n" +
-//                "livingNeighbors: $livingNeighbors")
+            Log.d(TAG, "calc deaths --------- \n" +
+                "Cell $cell at ${transTo2D(index)} \n" +
+                "neighbors: ${getNeighbors(index).map {i -> transTo2D(i) }} \n" +
+                "livingNeighbors: $livingNeighbors")
 
             // Dies if over or under populated
             if (livingNeighbors < SURVIVAL_MIN || livingNeighbors > SURVIVAL_MAX) {
@@ -76,9 +76,13 @@ class GameBoard(val size: Int, var lifeExpectancy: Int) {
                 }
             }
 
+            Log.d(TAG, "calc Births ++++++++++++ \n" +
+                    "Cell $cell at ${transTo2D(index)} \n" +
+                    "neighbors: ${getNeighbors(index).map {i -> transTo2D(i) }} \n" +
+                    "livingNeighbors: $livingNeighbors")
+
             if (livingNeighbors == BIRTH_NUMBER) {
-                cell.isLiving = true
-                newBoard[index] = cell
+                newBoard[index] = Cell(true, 0)
                 changes.add(index)
             }
         }
