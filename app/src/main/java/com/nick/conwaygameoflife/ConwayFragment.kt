@@ -1,15 +1,23 @@
 package com.nick.conwaygameoflife
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Parcelable
+import android.util.Log
 import android.view.*
 import android.widget.Button
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
+import com.google.gson.stream.JsonReader
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.FileReader
 import java.util.ArrayList
 
 class ConwayFragment : Fragment() {
@@ -35,6 +43,15 @@ class ConwayFragment : Fragment() {
         const val PLAY_KEY = "play"
         const val BOARD_KEY = "board"
         const val BOARD_SIZE_KEY = "size"
+        const val TAG = "ConwayFragment"
+
+        // Request codes
+        const val FILE_TO_WRITE_RC = 0
+        const val FILE_TO_READ_RC = 1
+
+        // Functional Constants
+        const val DEFAULT_FILENAME = "filename"
+        const val MIME_TYPE = "application/JSON"
 
     }
 
@@ -50,19 +67,8 @@ class ConwayFragment : Fragment() {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
         // Store buttons and setup actions
-        // Trying not to use synthetics anymore...
-        playPauseButton = view.findViewById(R.id.play_button)
-        saveButton = view.findViewById(R.id.save_button)
-        loadButton = view.findViewById(R.id.load_button)
-        cloneButton = view.findViewById(R.id.clone_button)
+        initializeButtons(view)
 
-        playPauseButton.setOnClickListener {
-            updateBoard()
-        }
-        saveButton.setOnClickListener {
-            val gson = Gson()
-            gson.toJson(state)
-        }
 
         /*
         Setup Game State - If a board was saved, the board and it's size is in the bundle using the
@@ -86,6 +92,39 @@ class ConwayFragment : Fragment() {
         //TODO use Handler to update state
 
         return view
+    }
+
+    fun initializeButtons(view: View) {
+        // Trying not to use synthetics anymore...
+        playPauseButton = view.findViewById(R.id.play_button)
+        saveButton = view.findViewById(R.id.save_button)
+        loadButton = view.findViewById(R.id.load_button)
+        cloneButton = view.findViewById(R.id.clone_button)
+
+        playPauseButton.setOnClickListener {
+            updateBoard()
+        }
+
+        saveButton.setOnClickListener {
+            val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = MIME_TYPE
+                putExtra(Intent.EXTRA_TITLE, DEFAULT_FILENAME)
+            }
+
+            startActivityForResult(intent, FILE_TO_WRITE_RC)
+        }
+
+        loadButton.setOnClickListener {
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+
+                type = MIME_TYPE
+            }
+            Log.d(TAG, "Pre-pre-Reading!")
+
+            startActivityForResult(intent, FILE_TO_READ_RC)
+        }
     }
 
     override fun onResume() {
@@ -113,6 +152,53 @@ class ConwayFragment : Fragment() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        Log.d(TAG, "requestCode: $requestCode \n" +
+                "resultCode: $resultCode \n" +
+                "data: $data")
+
+        if (requestCode == FILE_TO_WRITE_RC && resultCode == Activity.RESULT_OK) {
+            data?.data?.also { uri ->
+                val json = Gson().toJson(state)
+                val fd = activity?.contentResolver
+                    ?.openFileDescriptor(uri, "w")?.fileDescriptor
+
+                FileOutputStream(fd).use {
+                    it.write(json.toByteArray())
+                }
+            }
+        } else if (requestCode == FILE_TO_READ_RC && resultCode == Activity.RESULT_OK) {
+            Log.d(TAG, "Pre-Reading!")
+            data?.data?.also { uri ->
+                val fd = activity?.contentResolver
+                    ?.openFileDescriptor(uri, "r")?.fileDescriptor
+
+
+
+                JsonReader(FileReader(fd)).use {
+                    Log.d(TAG, state.toString())
+                    it.isLenient = true
+                    state = Gson().fromJson(it, GameBoard::class.java)
+                }
+
+                Log.d(TAG, state.toString())
+
+                activity?.getPreferences(Context.MODE_PRIVATE)?.edit {
+                    putString(getString(R.string.gridsize_key), state.size.toString())
+                    putInt(getString(R.string.lifespan_key), state.lifeExpectancy)
+                }
+
+                (recyclerView.adapter as ConwayAdapter).cellArr = state.board
+                recyclerView.adapter!!.notifyDataSetChanged()
+
+            }
+
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
         }
     }
 

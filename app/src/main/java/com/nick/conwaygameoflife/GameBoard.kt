@@ -1,8 +1,6 @@
 package com.nick.conwaygameoflife
 
-import android.os.Parcelable
 import android.util.Log
-import java.io.Serializable
 
 class GameBoard(val size: Int, var lifeExpectancy: Int) {
     var board: Array<Cell> = Array(size*size) {Cell()}
