@@ -5,6 +5,7 @@
     <string name="save_button">Save</string>
     <string name="load_button">Load</string>
     <string name="play_button">Play!</string>
+    <string name="pause_button">Pause!</string>
     <string name="clone_button">Clone</string>
     <string name="settings_button">Settings</string>
     <string name="reset_button">Reset</string>
@@ -37,5 +38,8 @@
     <!-- Summaries -->
     <string name="lifespan_summary">How long a cell will exist before dying. Enter \'0\' for immortality</string>
     <string name="restore_summary">Change all preferences to their default values</string>
+
+    <!-- Misc strings -->
+    <string name="cloned_toast">Clone Successful!</string>
 
 </resources>

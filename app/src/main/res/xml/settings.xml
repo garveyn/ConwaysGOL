@@ -50,15 +50,4 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        app:key="@string/debug_key"
-        app:title="@string/debug_title">
-
-        <Preference
-            app:key="@string/restore_key"
-            app:title="@string/restore_title"
-            app:summary="@string/restore_summary"/>
-
-    </PreferenceCategory>
-
 </androidx.preference.PreferenceScreen>

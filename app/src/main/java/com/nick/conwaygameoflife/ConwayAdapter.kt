@@ -2,13 +2,21 @@ package com.nick.conwaygameoflife
 
 import android.animation.ArgbEvaluator
 import android.content.Context
+import android.graphics.drawable.Drawable
+import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.vectordrawable.graphics.drawable.Animatable2Compat
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
+import java.util.logging.Handler
+import kotlin.math.min
 
 class ConwayAdapter(var cellArr: Array<Cell>, var size: Int, fragment: ConwayFragment)
     : RecyclerView.Adapter<ConwayAdapter.ConwayHolder>() {
@@ -21,6 +29,8 @@ class ConwayAdapter(var cellArr: Array<Cell>, var size: Int, fragment: ConwayFra
 
         val cellImage: ImageView = itemView.findViewById(R.id.cell_imageView)
         private lateinit var cell: Cell
+        var animated: AnimatedVectorDrawableCompat? = null
+
 
         fun bind(cellToBind: Cell){
             this.cell = cellToBind
@@ -28,15 +38,17 @@ class ConwayAdapter(var cellArr: Array<Cell>, var size: Int, fragment: ConwayFra
             val lifespan = preferences.getString(context.getString(R.string.lifespan_key),
                 GameBoard.IMMORTAL.toString())!!.toInt()
 
+            cellImage.adjustViewBounds = false
+
             if (cell.isLiving) {
-                cellImage.setImageResource(R.drawable.ic_cell)
+                animated = AnimatedVectorDrawableCompat.create(context, R.drawable.animated_cell)
+                cellImage.setImageDrawable(animated)
+                cellImage.post {animated?.start()}
             } else {
-                cellImage.setImageResource(R.drawable.ic_settings)
+                cellImage.setImageResource(R.drawable.ic_dead_cell)
             }
 
             cellImage.setColorFilter(getCellColor(lifespan))
-
-            // TODO Setup cell Animation
         }
 
         private fun getCellColor(lifespan: Int) : Int {
@@ -60,8 +72,10 @@ class ConwayAdapter(var cellArr: Array<Cell>, var size: Int, fragment: ConwayFra
         }
 
         fun cellClicked() {
-            val newCell = Cell(true, 0)
-            cellArr[adapterPosition] = newCell
+            cellArr[adapterPosition].apply {
+                isLiving = !isLiving
+                age = 0
+            }
             notifyItemChanged(adapterPosition)
         }
 
@@ -70,12 +84,6 @@ class ConwayAdapter(var cellArr: Array<Cell>, var size: Int, fragment: ConwayFra
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConwayHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.holder_cell, parent, false)
-
-        view.apply {
-            minimumHeight = parent.height/size
-            minimumWidth = parent.width/size
-        }
-
         return ConwayHolder(view)
     }
 
@@ -83,8 +91,7 @@ class ConwayAdapter(var cellArr: Array<Cell>, var size: Int, fragment: ConwayFra
     override fun getItemCount(): Int = cellArr.size
 
     override fun onBindViewHolder(holder: ConwayHolder, position: Int) {
-        val cell = cellArr[position]
-        holder.bind(cell)
+        holder.bind(cellArr[position])
         holder.itemView.setOnClickListener {
             holder.cellClicked()
         }
